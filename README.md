@@ -1,3 +1,3 @@
 
 #Currently building
-Check Docs for hand writen notes
+Check Docs for my hand writen notes
