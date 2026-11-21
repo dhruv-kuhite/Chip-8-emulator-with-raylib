@@ -1,0 +1,66 @@
+opcode : 00e0 // clear screen
+opcode : a22a //set i register to 22a
+opcode : 600c // 6 = load instruction ,in register 0 , 0c(12) set value this
+opcode : 6108 //6 = load instruction , in register 1, 08(8) set value this
+opcode : d01f // d = draw instruction ,0=x,1=y kere 0 is register0 and 1 is register1 , and f(15) 
+opcode : 7009 // 7= add, 0 means register0 , add 09(9) to register 0
+opcode : a239 // a = set i register to 239hex(569)
+opcode : d01f // d = draw instruction ,0=x,1=y kere 0 is register0 and 1 is register1 , and f(15) 
+opcode : a248 // set i register to 248hex(584)
+opcode : 7008 //7= add, 0 means register0 , add 08(8) to register 0
+opcode : d01f // d = draw instruction ,0=x,1=y kere 0 is register0 and 1 is register1 , and f(15) 
+opcode : 7004 //7= add, 0 means register0 , add 04(4) to register 0
+opcode : a257 // set i register to 257hex
+opcode : d01f // d = draw instruction ,0=x,1=y kere 0 is register0 and 1 is register1 , and f(15) 
+opcode : 7008 //7= add, 0 means register0 , add 08(8) to register 0
+opcode : a266 // set i register to 266hex
+opcode : d01f // d = draw instruction ,0=x,1=y kere 0 is register0 and 1 is register1 , and f(15) 
+opcode : 7008 //7= add, 0 means register0 , add 08(8) to register 0
+opcode : a275 // set i register to 275hex
+opcode : d01f // d = draw instruction ,0=x,1=y kere 0 is register0 and 1 is register1 , and f(15) 
+opcode : 1228 //1 = jump , jump to 228hex memory address
+opcode : ff00
+opcode : ff00
+opcode : 3c00
+opcode : 3c00
+opcode : 3c00
+opcode : 3c00
+opcode : ff00
+opcode : ffff
+opcode : 00ff
+opcode : 0038
+opcode : 003f
+opcode : 003f
+opcode : 0038
+opcode : 00ff
+opcode : 00ff
+opcode : 8000
+opcode : e000
+opcode : e000
+opcode : 8000
+opcode : 8000
+opcode : e000
+opcode : e000
+opcode : 80f8
+opcode : 00fc
+opcode : 003e
+opcode : 003f
+opcode : 003b
+opcode : 0039
+opcode : 00f8
+opcode : 00f8
+opcode : 0300
+opcode : 0700
+opcode : 0f00
+opcode : bf00
+opcode : fb00
+opcode : f300
+opcode : e300
+opcode : 43e5
+opcode : 05e2
+opcode : 0085
+opcode : 0781
+opcode : 0180
+opcode : 0280
+opcode : 07e1
+opcode : 06e7
