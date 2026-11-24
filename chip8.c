@@ -38,11 +38,6 @@ int Check_RomSize_setMemory() {
   }
 
   // Setting memory hereeeeeeeeeeeeeeeeeeeeeeeeeeee
-  // for (int i=0; i<Rom_Size; i++) {
-
-  //   printf("%d : %d\n",i,buffer[i]);
-
-  // }
 
   memcpy(&chip8.Memory[chip8.PC], buffer, Rom_Size);
 
@@ -68,11 +63,37 @@ void ClearEveryThing() {
   }
 }
 
-void DrawwOnScreen() {
+void WhereToDraw() {
 
- char DrawX = 0, DrawY = 0;
+  unsigned short DrawXreg = 0, DrawYreg = 0, Rows = 0;
 
+  DrawXreg = op_code & 0b0000111100000000;
+  DrawXreg = DrawXreg >> 8;
 
+  DrawYreg = op_code & 0b0000000011110000;
+  DrawYreg = DrawYreg >> 4;
+
+  unsigned char DrawXvalue = chip8.Registers[DrawXreg],
+                DrawYvalue = chip8.Registers[DrawYreg];
+
+  Rows = op_code & 0b0000000000001111;
+
+  for (int i = 0; i < Rows; i++) {
+
+    unsigned char spriteData = chip8.Memory[chip8.Iregister];
+
+    unsigned char window = 0b10000000;
+    // here inner loop 8 times because one byte is 8 bits in chip 8
+    // every sprite width is 8 like this example 0000000
+    for (int j = 0; j < 8; j++) {
+
+      // here 7-i because we need to shift one to index of binary 1
+      chip8.Display[DrawYvalue + i][DrawXvalue + j] =
+          (spriteData >> (7 - j) & 1);
+    }
+    chip8.Iregister++;
+  }
+  chip8.Iregister--;
 }
 
 void NowDecode_Execute() {
@@ -87,22 +108,40 @@ void NowDecode_Execute() {
   char checkOpCode = op_code >> 12;
   int regIndex = 0;
 
-
   switch (checkOpCode) {
 
+    // set Iregister
   case 0xa:
     chip8.Iregister = op_code & 0b0000111111111111;
+
     break;
 
+    // load in registers
   case 0x6:
-    regIndex = op_code & 0b0000111111111111;
+    regIndex = op_code & 0b0000111100000000;
     regIndex = regIndex >> 8;
-    chip8.Registers[0] = (char)(op_code & 0b0000000011111111);
+    chip8.Registers[regIndex] = (op_code & 0b0000000011111111);
     break;
 
+    // draw on screen
   case 0xd:
 
-    DrawwOnScreen();
+    WhereToDraw();
+
+    break;
+
+    // add to a particular register
+  case 0x7:
+
+    regIndex = op_code & 0b0000111100000000;
+    regIndex = regIndex >> 8;
+    chip8.Registers[regIndex] += (op_code & 0b0000000011111111);
+    break;
+
+    // jump instruction set pc
+
+  case 0x1:
+    chip8.PC = op_code & 0b0000111111111111;
 
     break;
   }
@@ -142,7 +181,6 @@ int main() {
     getOPCODE();
     NowDecode_Execute();
     DrawEveryThing();
-    WaitTime(1);
 
     EndDrawing();
   }
